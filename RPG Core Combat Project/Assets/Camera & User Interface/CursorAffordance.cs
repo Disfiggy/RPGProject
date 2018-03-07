@@ -16,11 +16,13 @@ public class CursorAffordance : MonoBehaviour {
 	void Start ()
     {
         cameraRaycaster = GetComponent<CameraRaycaster>();
+        cameraRaycaster.onLayerChange += OnLayerChange; // registering this
 	}
 	
 	// Update is called once per frame
-	void LateUpdate () {
-
+	void OnLayerChange (Layer newLayer) { // Only called when layer changes
+        var layer = cameraRaycaster.currentlayerHit;
+        print("CursorAffordance delegate called. Current pointed layer is: " + layer);
         switch(cameraRaycaster.currentlayerHit)
         {
             case Layer.Walkable:
